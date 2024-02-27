@@ -77,14 +77,42 @@ Node* llfilter(Node* head, Comp pred);
 // implement the above function now.
 //*****************************************************************************
 
+// Node* address = NULL;
+// where to instantiate address?
+// check what static variable in function does / does it redefine when the function is called again or only if its the first time?
+// void setAddress(Node* address) {
+//     if (address_ == NULL) {
+//         address_ = address;
+//     } else {
+//         address->next = address_;
+//         address_ = address;
+//     }
+//     return;
+// }
+
+// Node* getAddress () {
+//     return address_;
+// }
+
 template <typename Comp>
 Node* llfilter(Node* head, Comp pred)
 {
     //*********************************************
     // Provide your implementation below
     //*********************************************
+    if (head == NULL) {
+      return NULL;
+    } 
+    head->next = llfilter(head->next, pred);
 
-
+    if (pred(head->val)) {
+        //remove the node, update the previous' next
+        Node* nextNode = head->next;
+        delete head;
+        return nextNode;
+        } 
+    return head;
+ 
 }
 
 #endif
